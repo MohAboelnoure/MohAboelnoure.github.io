@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moh Aboelnour | Watershed Hydrology & Decision Support</title>
+<meta name="description" content="Moh Aboelnour, Assistant Research Professor at the Notre Dame Environmental Change Initiative. Hydrologic modeling, flood risk, water quality and AI-enabled decision support for resilient watersheds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="flow" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a href="#top" class="brand">MA<span>.</span></a>
+  <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
+  <nav id="menu">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#projects">Projects</a>
+    <a href="#publications">Publications</a>
+    <a href="#funding">Funding</a>
+    <a href="#team">Mentoring &amp; Service</a>
+    <a href="#toolkit">Toolkit</a>
+    <a href="#contact" class="cta">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow reveal">Assistant Research Professor &middot; Notre Dame Environmental Change Initiative</p>
+      <h1 class="reveal">Moh <em>Aboelnour</em></h1>
+      <p class="lead reveal">I build watershed models that help communities decide what to do about <b>floods</b>, <b>water quality</b> and <b>water availability</b> in a changing climate.</p>
+      <div class="hero-actions reveal">
+        <a class="btn primary" href="#research">Explore my research</a>
+        <a class="btn" href="#publications">Publications</a>
+      </div>
+      <ul class="chips reveal">
+        <li>Hydrologic modeling</li><li>Flood risk</li><li>Machine learning</li><li>Optimization</li><li>Remote sensing</li><li>Great Lakes</li>
+      </ul>
+    </div>
+    <div class="portrait reveal">
+      <div class="ring"></div>
+      <!-- Replace assets/photo.jpg with your portrait. The initials show until the file exists. -->
+      <div class="photo">
+        <span class="initials">MA</span>
+        <img src="assets/photo.jpg" alt="Portrait of Moh Aboelnour" onerror="this.remove()">
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="scroll" aria-label="Scroll down"><span></span></a>
+</section>
+
+<!-- STATS -->
+<section class="stats wrap">
+  <div class="stat reveal"><b data-count="9">0</b><span>peer-reviewed articles at Notre Dame since 2022</span></div>
+  <div class="stat reveal"><b data-count="2" data-prefix="$" data-suffix="M+">0</b><span>in funded initiatives</span></div>
+  <div class="stat reveal"><b data-count="2">0</b><span>doctoral students co-advised</span></div>
+  <div class="stat reveal"><b data-count="14">0</b><span>journals reviewed for</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="wrap split">
+  <div>
+    <p class="kicker reveal">About</p>
+    <h2 class="reveal">Rigorous science, built for real decisions.</h2>
+  </div>
+  <div class="prose reveal">
+    <p>Since joining the University of Notre Dame, I have developed a research program on understanding and managing water-related risks in human-impacted watersheds. My work connects process-based hydrologic modeling, geospatial analysis, climate information, machine learning and optimization.</p>
+    <p>The goal is science that is credible <i>and</i> useful: tools that communities, watershed organizations, engineers and conservation professionals can actually use to compare options under uncertainty.</p>
+    <p>I hold a Ph.D. in Agricultural and Biological Engineering from Purdue University (advisor Bernard Engel), an M.E. in Geo-detection and Information Technology from China University of Geosciences, Beijing, and a B.S. in Geosciences from Suez Canal University, Egypt. Before my current role I was a postdoctoral associate at Notre Dame, working with Diogo Bolster and Jennifer Tank.</p>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="wrap">
+  <p class="kicker reveal">Research</p>
+  <h2 class="reveal">Three connected threads</h2>
+  <p class="sub reveal">A progression from understanding hydrologic processes, to evaluating interventions, to helping stakeholders compare choices under uncertainty.</p>
+  <div class="cards three">
+    <article class="card reveal">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 17c3 0 3-3 6-3s3 3 6 3 3-3 6-3M3 11c3 0 3-3 6-3s3 3 6 3 3-3 6-3"/></svg></div>
+      <h3>Watershed response to climate &amp; management</h3>
+      <p>SWAT models of the St. Joseph River Basin quantify how land-use change, future climate and winter cover crops shift river flow, sediment, nitrate and phosphorus delivery to Lake Michigan.</p>
+      <div class="tags"><span>SWAT</span><span>Groundwater&ndash;surface water</span><span>Cover crops</span></div>
+    </article>
+    <article class="card reveal">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
+      <h3>Probabilistic urban climate risk</h3>
+      <p>Flood-exposure and water-security indicators for cities worldwide, and an equity-centered probabilistic flood-risk framework for Indianapolis that shows how risk may shift and who bears it.</p>
+      <div class="tags"><span>ERA5-Land</span><span>Google Earth Engine</span><span>Vulnerability</span></div>
+    </article>
+    <article class="card reveal">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6 8l5 8M18 8l-5 8"/></svg></div>
+      <h3>Accelerated decision support</h3>
+      <p>Automated workflows linking process-based models with machine-learning emulators, large scenario ensembles, uncertainty analysis and multi-objective optimization, so tradeoffs can be explored in minutes, not months.</p>
+      <div class="tags"><span>ML emulators</span><span>Optimization</span><span>CLEAR Watersheds</span></div>
+    </article>
+  </div>
+
+  <div class="callout reveal">
+    <h3>Where this is heading</h3>
+    <ul>
+      <li><b>Demonstration:</b> moving CLEAR Watersheds from framework to application, and testing whether fast emulators preserve hydrologically important behavior.</li>
+      <li><b>Interventions in combination:</b> cover crops, upstream storage, drainage management, natural infrastructure and stormwater, evaluated together across rural, urban and basin scales.</li>
+      <li><b>Uncertainty that matters:</b> separating what better data can reduce from what robust planning must absorb, with social vulnerability built in.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="wrap">
+  <p class="kicker reveal">Projects</p>
+  <h2 class="reveal">Selected work</h2>
+  <div class="timeline">
+    <article class="t-item reveal">
+      <time>2025 &ndash; now</time>
+      <div>
+        <h3>CLEAR Watersheds</h3>
+        <p class="meta">Community-Led Environmental AI for Resilient Watersheds</p>
+        <p>Automated, hydrologically sound modeling workflows that pair process-based models with ML emulators and optimization, built to give flood-, water-quality- and agriculture-minded partners a shared view of tradeoffs across rural&ndash;urban landscapes.</p>
+      </div>
+    </article>
+    <article class="t-item reveal">
+      <time>2025 &ndash; now</time>
+      <div>
+        <h3>Elkhart River Watershed &middot; Clean Water Indiana</h3>
+        <p class="meta">with Elkhart County Soil &amp; Water Conservation District</p>
+        <p>A watershed model and scenario framework for sediment, nutrients, conservation practices and water-budget questions, shaped by local priorities and field-monitoring input. A practical testbed for CLEAR methods.</p>
+      </div>
+    </article>
+    <article class="t-item reveal">
+      <time>2025 &ndash; now</time>
+      <div>
+        <h3>Community-Centered Optimization for Rural&ndash;Urban Water Systems</h3>
+        <p class="meta">Just Transformations to Sustainability Initiative</p>
+        <p>Stochastic hydrologic modeling and multi-objective optimization to weigh flood reduction, runoff management, water quality and agricultural productivity.</p>
+      </div>
+    </article>
+    <article class="t-item reveal">
+      <time>2024 &ndash; 2026</time>
+      <div>
+        <h3>Mapping Tomorrow&rsquo;s Flood &middot; Indianapolis</h3>
+        <p class="meta">Probabilistic, equity-centered flood risk</p>
+        <p>Integrates climate projections, urban development, exposure and socioeconomic vulnerability to show how flood risk may shift spatially and affect vulnerable communities. Published in <i>Natural Hazards</i>.</p>
+      </div>
+    </article>
+    <article class="t-item reveal">
+      <time>2023 &ndash; 2024</time>
+      <div>
+        <h3>Global Urban Climate Assessment (GUCA)</h3>
+        <p class="meta">Public platform for equitable climate-resilience planning</p>
+        <p>Flood-exposure and water-security indicators from ERA5-Land and Google Earth Engine across cities in very different climatic and socioeconomic settings.</p>
+      </div>
+    </article>
+    <article class="t-item reveal">
+      <time>2022 &ndash; 2024</time>
+      <div>
+        <h3>Rural&ndash;Urban Interface &middot; St. Joseph River Basin</h3>
+        <p class="meta">Groundwater&ndash;surface water, land use and cover crops</p>
+        <p>Two SWAT studies on historical land-use change and on winter cover crops under future climate, plus a Pine Creek watershed nutrient-runoff model.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="wrap">
+  <p class="kicker reveal">Publications</p>
+  <h2 class="reveal">Peer-reviewed articles</h2>
+  <div class="filters reveal" id="filters">
+    <button class="on" data-f="all">All</button>
+    <button data-f="first">First author</button>
+    <button data-f="nd">Since 2022</button>
+  </div>
+  <ol class="pubs" id="pubs"></ol>
+  <p class="more reveal">Full list on <a href="#" id="scholar-link" target="_blank" rel="noopener">Google Scholar</a> &rarr;</p>
+
+  <h3 class="subhead reveal">Selected presentations</h3>
+  <ul class="plain reveal">
+    <li><b>2025</b> &nbsp;National Sustainability Society Annual Conference, Notre Dame &mdash; <i>Urban-Rural Regional Water Management in the Great Lakes Region</i></li>
+    <li><b>2025</b> &nbsp;AGU, New Orleans &mdash; <i>Expanding Cities, Intensifying Storms? Urbanization and Flood Risk in the Texas Triangle</i></li>
+    <li><b>2024</b> &nbsp;AGU, Washington DC &mdash; <i>Urban Flood Vulnerability and Water Security in Global Cities Using ERA5</i>; <i>Future Climate Scenarios and Winter Cover Crops in a Lake Michigan Watershed</i></li>
+    <li><b>2023</b> &nbsp;EGU General Assembly &mdash; <i>Land Use and Vegetative Cover Effects on Hydrology, Nutrients and Sediment, Lake Michigan Catchment</i></li>
+    <li><b>2022</b> &nbsp;AGU, Chicago &mdash; <i>Land Use Change and Surface Water&ndash;Groundwater Interactions in the St. Joseph River</i></li>
+  </ul>
+</section>
+
+<!-- FUNDING -->
+<section id="funding" class="wrap">
+  <p class="kicker reveal">Funding</p>
+  <h2 class="reveal">Supported by</h2>
+  <div class="cards three">
+    <article class="card reveal"><p class="amount">$1,895,000</p><h3>CLEAR Watersheds</h3><p>AWS &middot; 2025<br>Optimizing flood, water quantity and quality management across rural&ndash;urban landscapes.</p><div class="tags"><span>Senior personnel</span></div></article>
+    <article class="card reveal"><p class="amount">$150,000</p><h3>Community-Centered Optimization</h3><p>Just Transformations to Sustainability Initiative, Notre Dame &middot; 2025</p><div class="tags"><span>Senior personnel</span></div></article>
+    <article class="card reveal"><p class="amount">$40,000</p><h3>Clean Water Indiana</h3><p>Elkhart County Soil &amp; Water Conservation District &middot; 2025</p><div class="tags"><span>Senior personnel</span></div></article>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="wrap">
+  <p class="kicker reveal">Mentoring &amp; Service</p>
+  <h2 class="reveal">People and community</h2>
+  <div class="cards two">
+    <article class="card reveal">
+      <h3>Graduate co-advising</h3>
+      <ul class="plain">
+        <li><b>Ahmad Al Azzam</b><br>Ph.D., Civil &amp; Environmental Engineering and Earth Sciences &middot; expected May 2028</li>
+        <li><b>Suharshi De Silva</b><br>Ph.D., Chemical &amp; Biomolecular Engineering &middot; anticipated 2030</li>
+      </ul>
+      <p class="small">I connect sound scientific questions with reproducible computational practice, and help students see how their work fits larger collaborative goals.</p>
+    </article>
+    <article class="card reveal">
+      <h3>Editorial &amp; professional service</h3>
+      <ul class="plain">
+        <li><b>Associate Editor</b>, <i>Earth Systems and Environment</i> (2025&ndash;)</li>
+        <li><b>Reviewer</b> for Journal of Hydrology, Water Resources Research, Journal of Great Lakes Research, Agricultural Water Management, J. Environmental Management, Scientific Reports and more</li>
+        <li><b>Member</b> AGU &middot; ASABE &middot; Indiana Water Resources Association</li>
+      </ul>
+    </article>
+    <article class="card reveal wide">
+      <h3>Community engagement</h3>
+      <p>I work with watershed organizations, soil and water conservation districts, municipal partners and practitioners so modeled alternatives, performance measures and tool design reflect the decisions stakeholders actually face, and I bring what I learn from them back into the science.</p>
+    </article>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit" class="wrap">
+  <p class="kicker reveal">Toolkit</p>
+  <h2 class="reveal">What I work with</h2>
+  <div class="cards four">
+    <article class="card reveal"><h3>Hydrologic modeling</h3><div class="tags"><span>SWAT / SWAT+</span><span>SWAT-CUP</span><span>HEC-HMS</span><span>HEC-RAS</span><span>L-THIA</span><span>LOADEST</span></div></article>
+    <article class="card reveal"><h3>Geospatial &amp; remote sensing</h3><div class="tags"><span>Google Earth Engine</span><span>ArcGIS</span><span>QGIS</span><span>ENVI</span><span>ERDAS</span></div></article>
+    <article class="card reveal"><h3>Data &amp; code</h3><div class="tags"><span>Python</span><span>R</span><span>ML emulators</span><span>Optimization</span><span>SAS</span><span>JMP</span></div></article>
+    <article class="card reveal"><h3>Climate data</h3><div class="tags"><span>ERA5-Land</span><span>Climate projections</span><span>Scenario ensembles</span><span>Uncertainty analysis</span></div></article>
+  </div>
+</section>
+
+<!-- BACKGROUND -->
+<section id="background" class="wrap split">
+  <div>
+    <p class="kicker reveal">Background</p>
+    <h2 class="reveal">Path so far</h2>
+  </div>
+  <div class="path reveal">
+    <div><time>2026 &ndash;</time><b>Assistant Research Professor</b><span>Environmental Change Initiative, University of Notre Dame</span></div>
+    <div><time>2022 &ndash; 2026</time><b>Postdoctoral Associate</b><span>Civil &amp; Environmental Engineering and Earth Sciences, Notre Dame</span></div>
+    <div><time>2020 &ndash; 2021</time><b>Research Assistant</b><span>Agricultural &amp; Biological Engineering, Purdue University</span></div>
+    <div><time>2015 &ndash; 2020</time><b>Ph.D., Agricultural &amp; Biological Engineering</b><span>Purdue University &middot; urbanization, surface temperature and hydrology</span></div>
+    <div><time>2010 &ndash; 2013</time><b>M.E., Geo-detection &amp; Information Technology</b><span>China University of Geosciences, Beijing &middot; Tibetan Plateau glacier and climate study</span></div>
+    <div><time>2005 &ndash; 2009</time><b>B.S., Geosciences</b><span>Suez Canal University, Egypt</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="wrap contact">
+  <p class="kicker reveal">Contact</p>
+  <h2 class="reveal">Let&rsquo;s talk water.</h2>
+  <p class="sub reveal">Interested in collaboration, student opportunities, or putting these tools to work in your watershed? I&rsquo;d like to hear from you.</p>
+  <div class="hero-actions reveal">
+    <a class="btn primary" href="mailto:maboelno@nd.edu">maboelno@nd.edu</a>
+    <a class="btn" href="#" id="scholar-btn" target="_blank" rel="noopener">Google Scholar</a>
+    <a class="btn" href="#" id="linkedin-btn" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <p class="small reveal">Environmental Change Initiative &middot; University of Notre Dame</p>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; <span id="yr"></span> Moh Aboelnour</span>
+    <a href="https://environmentalchange.nd.edu/about/moh-aboelnour/" target="_blank" rel="noopener">Notre Dame profile</a>
+    <a href="#top">Back to top &uarr;</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
