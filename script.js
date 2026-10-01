@@ -79,6 +79,38 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
   }
   const height = (x,y) => { let v=0, amp=.5, f=1; for(let o=0;o<4;o++){ v += amp*noise(x*f+o*5.2, y*f+o*1.7); amp*=.5; f*=2; } return v; };
 
+  // drainage network: fill depressions (priority-flood), route water downhill, accumulate flow, trace the channels
+  function rivers(g, cols, rows, cell){
+    const N = cols*rows, z = Float32Array.from(g), recv = new Int32Array(N).fill(-1), seen = new Uint8Array(N), order = new Int32Array(N);
+    let oc = 0; const heap = [];
+    const push = i => { heap.push(i); let c = heap.length-1; while(c>0){ const p=(c-1)>>1; if(z[heap[p]]<=z[heap[c]]) break; [heap[p],heap[c]]=[heap[c],heap[p]]; c=p; } };
+    const pop = () => { const top = heap[0], last = heap.pop(); if(heap.length){ heap[0]=last; let p=0; for(;;){ const l=2*p+1, r=l+1; let m=p;
+      if(l<heap.length && z[heap[l]]<z[heap[m]]) m=l; if(r<heap.length && z[heap[r]]<z[heap[m]]) m=r; if(m===p) break; [heap[p],heap[m]]=[heap[m],heap[p]]; p=m; } } return top; };
+    for(let i=0;i<cols;i++) for(const j of [0,rows-1]){ const n=j*cols+i; if(!seen[n]){ seen[n]=1; push(n); } }
+    for(let j=0;j<rows;j++) for(const i of [0,cols-1]){ const n=j*cols+i; if(!seen[n]){ seen[n]=1; push(n); } }
+    while(heap.length){
+      const c = pop(); order[oc++] = c; const ci = c%cols, cj = (c/cols)|0;
+      for(let dj=-1;dj<=1;dj++) for(let di=-1;di<=1;di++){
+        if(!di && !dj) continue; const ni=ci+di, nj=cj+dj; if(ni<0||nj<0||ni>=cols||nj>=rows) continue;
+        const n = nj*cols+ni; if(seen[n]) continue; seen[n]=1; recv[n]=c; if(z[n] <= z[c]) z[n] = z[c] + 1e-5*(.3 + 1.4*(((n*2654435761)>>>0)%1000)/1000); push(n);
+      }
+    }
+    const acc = new Float32Array(N).fill(1);
+    for(let k=oc-1;k>=0;k--){ const c=order[k], r=recv[c]; if(r>=0) acc[r] += acc[c]; }
+    const main = new Int32Array(N).fill(-1);
+    for(let c=0;c<N;c++){ const r=recv[c]; if(r>=0 && (main[r]<0 || acc[c]>acc[main[r]])) main[r]=c; }
+    const T = Math.max(35, .0022*N), cuts = [T, 3*T, 9*T, 27*T], paths = cuts.map(() => new Path2D());
+    const X = c => (c%cols)*cell, Y = c => ((c/cols)|0)*cell;
+    for(let c=0;c<N;c++){
+      const r = recv[c]; if(r<0 || acc[c]<T) continue;
+      let k = 0; while(k<3 && acc[c]>=cuts[k+1]) k++;
+      const p = paths[k], mx = (X(c)+X(r))/2, my = (Y(c)+Y(r))/2, u = main[c];
+      if(u>=0 && acc[u]>=T) p.moveTo((X(u)+X(c))/2, (Y(u)+Y(c))/2); else p.moveTo(X(c), Y(c));
+      p.quadraticCurveTo(X(c), Y(c), mx, my);
+      if(main[r] !== c || recv[r] < 0) p.lineTo(X(r), Y(r));          // tributary joins the river / river reaches the edge
+    }
+    return paths;
+  }
   let G = null;                       // {g, cols, rows, cell, W, H, dpr}
   const sm = document.createElement("canvas"), smctx = sm.getContext("2d");
 
@@ -117,6 +149,11 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     ctx.lineWidth = 1; ctx.lineJoin = "round";
     ctx.strokeStyle = "rgba(143,184,212,.075)"; ctx.stroke(minor);
     ctx.strokeStyle = "rgba(143,184,212,.17)";  ctx.stroke(major);
+    ctx.lineCap = "round";
+    const rw = [.8,1.15,1.6,2.1], ra = [.15,.21,.29,.38];
+    (() => { const rc = Math.max(3, Math.ceil(Math.sqrt(W*H/110000))), rcols = Math.ceil(W/rc)+1, rrows = Math.ceil(H/rc)+1, gr = new Float32Array(rcols*rrows);
+      for(let j=0;j<rrows;j++) for(let i=0;i<rcols;i++) gr[j*rcols+i] = height(i*rc*sc, j*rc*sc);
+      return rivers(gr, rcols, rrows, rc); })().forEach((p,k) => { ctx.lineWidth = rw[k]; ctx.strokeStyle = `rgba(150,196,228,${ra[k]})`; ctx.stroke(p); });
     paintWater(level);
   }
 
