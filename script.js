@@ -44,7 +44,7 @@ document.getElementById("filters").addEventListener("click", e => {
 });
 
 /* ---- links ---- */
-["scholar-link","scholar-btn"].forEach(id => document.getElementById(id).href = LINKS.scholar);
+document.getElementById("scholar-link").href = LINKS.scholar;
 document.getElementById("linkedin-btn").href = LINKS.linkedin;
 document.getElementById("yr").textContent = new Date().getFullYear();
 
