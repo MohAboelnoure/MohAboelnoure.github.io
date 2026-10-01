@@ -140,6 +140,9 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 .pubs li{display:grid;grid-template-columns:70px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);font-size:15.5px}
 .pubs .yr{font:600 20px 'Space Grotesk';color:var(--a)}
 .pubs .ttl{color:var(--head);font-weight:500;display:block;margin-bottom:3px}
+.pubs a.ttl{transition:color .2s}
+.pubs a.ttl:hover{color:var(--a)}
+.pubs .ext{color:var(--a);font-size:.9em;opacity:.7}
 .pubs .au{color:var(--mute);font-size:14.5px}
 .pubs .au b{color:var(--b);font-weight:600}
 .pubs .jr{color:var(--text);font-style:italic;font-size:14.5px}
