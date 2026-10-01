@@ -61,13 +61,6 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 .photo::after{content:"";position:absolute;inset:5px;border-radius:inherit;pointer-events:none;background:linear-gradient(165deg,rgba(56,189,248,.28),rgba(45,212,191,.05) 45%,rgba(7,11,18,.55));mix-blend-mode:soft-light}
 @keyframes morph{50%{border-radius:45% 55% 40% 60%/58% 42% 58% 42%}}
 .initials{font:700 80px 'Space Grotesk';color:rgba(7,11,18,.5)}
-/* floating topic badges */
-.float{position:absolute;padding:7px 14px;font:500 13px 'Space Grotesk';color:var(--head);background:rgba(13,20,32,.82);border:1px solid rgba(56,189,248,.35);border-radius:99px;backdrop-filter:blur(8px);white-space:nowrap;animation:bob 5s ease-in-out infinite;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.f1{top:6%;left:-12%}
-.f2{top:30%;right:-14%;animation-delay:-1.2s}
-.f3{bottom:14%;left:-16%;animation-delay:-2.4s}
-.f4{bottom:-2%;right:-4%;animation-delay:-3.6s}
-@keyframes bob{50%{transform:translateY(-10px)}}
 .scroll{position:absolute;bottom:28px;left:50%;width:24px;height:40px;border:2px solid var(--mute);border-radius:14px;transform:translateX(-50%);opacity:.6}
 .scroll span{position:absolute;left:50%;top:7px;width:3px;height:8px;border-radius:2px;background:var(--a);transform:translateX(-50%);animation:dot 1.8s infinite}
 @keyframes dot{50%{top:19px;opacity:.2}}
@@ -147,9 +140,7 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 
 @media(max-width:900px){
   .hero-grid,.split{grid-template-columns:1fr}
-  .portrait{order:-1;width:230px;margin:10px 0 24px}
-  .f1{left:-6%}.f2{right:-6%}.f3{left:-8%}.f4{right:-2%}.float{font-size:12px;padding:5px 11px}
-  .cards.three,.cards.two{grid-template-columns:1fr}
+  .portrait{order:-1;width:230px;margin:10px 0 24px}  .cards.three,.cards.two{grid-template-columns:1fr}
   .cards.four,.stats{grid-template-columns:repeat(2,1fr)}
   .burger{display:block}
   nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(7,11,18,.97);padding:10px 24px 20px;display:none;border-bottom:1px solid var(--line)}
