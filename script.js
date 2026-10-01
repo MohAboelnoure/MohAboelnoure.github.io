@@ -62,27 +62,52 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.12});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-/* ---- flowing-streamlines background ---- */
+/* ---- topographic contour background (static, drawn once per resize) ---- */
 (() => {
   const cv = document.getElementById("flow"), ctx = cv.getContext("2d");
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let W, H, parts = [];
-  const N = () => Math.min(140, Math.floor(innerWidth/9));
-  function size(){ W = cv.width = innerWidth; H = cv.height = innerHeight;
-    parts = Array.from({length:N()}, spawn); ctx.fillStyle="#070b12"; ctx.fillRect(0,0,W,H); }
-  function spawn(){ return {x:Math.random()*W, y:Math.random()*H, v:.6+Math.random()*1.2, c:Math.random()<.5?"56,189,248":"45,212,191"}; }
-  // smooth pseudo-random flow field (sum of sines) that drifts left->right like a river
-  const ang = (x,y,t) => Math.sin(x*.0021+t*.0004)*.9 + Math.cos(y*.0027-t*.0003)*.8 + Math.sin((x+y)*.0011)*.4;
-  function frame(t){
-    ctx.fillStyle = "rgba(7,11,18,.07)"; ctx.fillRect(0,0,W,H);
-    for(const p of parts){
-      const a = ang(p.x,p.y,t), nx = p.x+Math.cos(a)*p.v+.5, ny = p.y+Math.sin(a)*p.v;
-      ctx.strokeStyle = `rgba(${p.c},.55)`; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(nx,ny); ctx.stroke();
-      p.x=nx; p.y=ny;
-      if(p.x>W||p.x<0||p.y>H||p.y<0) Object.assign(p, spawn(), {x:Math.random()<.7?0:Math.random()*W, y:Math.random()*H});
-    }
-    requestAnimationFrame(frame);
+  // deterministic value noise -> smooth terrain-like height field
+  const hash = (x,y) => { const h = Math.sin(x*127.1 + y*311.7 + 17.3) * 43758.5453; return h - Math.floor(h); };
+  const smooth = t => t*t*(3-2*t);
+  function noise(x,y){
+    const xi = Math.floor(x), yi = Math.floor(y), xf = smooth(x-xi), yf = smooth(y-yi);
+    const a = hash(xi,yi), b = hash(xi+1,yi), c = hash(xi,yi+1), d = hash(xi+1,yi+1);
+    return a + (b-a)*xf + (c-a)*yf + (a-b-c+d)*xf*yf;
   }
-  addEventListener("resize", size); size(); requestAnimationFrame(frame);
+  const height = (x,y) => { let v=0, amp=.5, f=1; for(let o=0;o<4;o++){ v += amp*noise(x*f+o*5.2, y*f+o*1.7); amp*=.5; f*=2; } return v; };
+
+  function draw(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
+    cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+    const cell = 7, cols = Math.ceil(W/cell)+1, rows = Math.ceil(H/cell)+1, sc = 3.4/Math.max(W,H);
+    const g = new Float32Array(cols*rows);
+    for(let j=0;j<rows;j++) for(let i=0;i<cols;i++) g[j*cols+i] = height(i*cell*sc, j*cell*sc);
+    const minor = new Path2D(), major = new Path2D();
+    for(let k=0;k<22;k++){
+      const lvl = .16 + k*.027, path = (k%5===0) ? major : minor;
+      const pt = (x0,y0,x1,y1,v0,v1) => { const t = (lvl-v0)/(v1-v0); return [x0+(x1-x0)*t, y0+(y1-y0)*t]; };
+      for(let j=0;j<rows-1;j++) for(let i=0;i<cols-1;i++){
+        const a=g[j*cols+i], b=g[j*cols+i+1], c=g[(j+1)*cols+i+1], d=g[(j+1)*cols+i];
+        const idx = (a>lvl?8:0)|(b>lvl?4:0)|(c>lvl?2:0)|(d>lvl?1:0);
+        if(idx===0||idx===15) continue;
+        const x=i*cell, y=j*cell, X=x+cell, Y=y+cell;
+        const T=()=>pt(x,y,X,y,a,b), R=()=>pt(X,y,X,Y,b,c), B=()=>pt(x,Y,X,Y,d,c), L=()=>pt(x,y,x,Y,a,d);
+        const seg = (p,q) => { path.moveTo(p[0],p[1]); path.lineTo(q[0],q[1]); };
+        switch(idx){
+          case 1: case 14: seg(L(),B()); break;
+          case 2: case 13: seg(B(),R()); break;
+          case 3: case 12: seg(L(),R()); break;
+          case 4: case 11: seg(T(),R()); break;
+          case 5: seg(T(),R()); seg(L(),B()); break;
+          case 6: case 9: seg(T(),B()); break;
+          case 7: case 8: seg(L(),T()); break;
+          case 10: seg(L(),T()); seg(B(),R()); break;
+        }
+      }
+    }
+    ctx.lineWidth = 1; ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(143,184,212,.075)"; ctx.stroke(minor);
+    ctx.strokeStyle = "rgba(143,184,212,.17)";  ctx.stroke(major);
+  }
+  let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 150); });
+  draw();
 })();
