@@ -77,6 +77,14 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 .cards.four{grid-template-columns:repeat(4,1fr)}
 .cards.two{grid-template-columns:repeat(2,1fr)}
 .card.wide{grid-column:1/-1}
+/* publication links inside cards */
+.papers{list-style:none;margin:16px 0 0}
+.papers li+li{margin-top:8px}
+.papers a{display:block;position:relative;padding:11px 38px 11px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(7,11,18,.45);color:var(--head);font-size:14.5px;line-height:1.4;transition:.25s}
+.papers a b{font-weight:600;color:var(--b)}
+.papers a em{display:block;font-style:italic;font-size:13px;color:var(--mute);margin-top:2px}
+.papers a span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--a)}
+.papers a:hover{border-color:var(--a);transform:translateY(-2px)}
 /* figures inside cards */
 .fig{display:block;margin:-28px -28px 22px;color:inherit;border-bottom:1px solid var(--line)}
 .fig .frame{display:block;overflow:hidden;background:#fff}
