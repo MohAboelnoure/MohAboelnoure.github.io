@@ -159,6 +159,10 @@ input[type=checkbox]{accent-color:var(--a);width:16px;height:16px}
 .proj-main h3{font-size:24px;margin-bottom:4px}
 .proj-main .role{color:var(--a);font-size:15.5px;margin-bottom:12px}
 .proj-main p:not(.role){color:var(--mute);font-size:16px;max-width:640px}
+.proj{transition:background .25s ease,box-shadow .25s ease}
+.proj-main h3{transition:color .25s ease}
+.proj:hover{background:rgba(143,184,212,.06);box-shadow:inset 2px 0 0 var(--a)}
+.proj:hover .proj-main h3{color:var(--a)}
 
 /* pubs */
 .filters{display:flex;gap:10px;margin:26px 0}
