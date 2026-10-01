@@ -130,6 +130,42 @@
   </div>
 </section>
 
+<!-- INTERACTIVE -->
+<section id="explore" class="wrap">
+  <p class="kicker reveal">Interactive</p>
+  <h2 class="reveal">Try a storm</h2>
+  <p class="sub reveal">Change the storm and the landscape to see how much rain runs off and how high the river peaks. This is a simplified rainfall&ndash;runoff model for illustration; my research uses calibrated, process-based models.</p>
+  <div class="lab reveal">
+    <div class="lab-controls">
+      <p class="lab-label">Start from</p>
+      <div class="presets">
+        <button type="button" data-preset="natural">Natural</button>
+        <button type="button" data-preset="today" class="on">Farm country</button>
+        <button type="button" data-preset="growth">Urbanizing</button>
+        <button type="button" data-preset="managed">Urbanizing, managed</button>
+      </div>
+      <label class="ctl"><span>Storm depth <output id="o-p">3.0 in</output></span><input type="range" id="in-p" min="1" max="6" step="0.1" value="3"></label>
+      <label class="ctl"><span>Urban land <output id="o-u">10%</output></span><input type="range" id="in-u" min="0" max="80" step="1" value="10"></label>
+      <label class="ctl"><span>Farmland <output id="o-f">60%</output></span><input type="range" id="in-f" min="0" max="100" step="1" value="60"></label>
+      <p class="ctl-note">The rest is forest and wetland: <b id="o-n">30%</b></p>
+      <label class="check"><input type="checkbox" id="in-cc"> Winter cover crops on farmland</label>
+      <label class="check"><input type="checkbox" id="in-st"> Upstream storage (ponds, wetlands)</label>
+    </div>
+    <div class="lab-view">
+      <div class="readouts">
+        <div><span class="r-name">Runoff</span><b id="r-q">0.87 in</b><span id="r-ratio" class="r-sub"></span></div>
+        <div><span class="r-name">Peak flow</span><b id="r-peak">5,400 cfs</b><span id="r-vs" class="r-sub"></span></div>
+        <div><span class="r-name">River</span><b id="r-status" class="ok">Below the flood threshold</b></div>
+      </div>
+      <div class="chart">
+        <canvas id="rain" aria-hidden="true"></canvas>
+        <svg id="hydro" viewBox="0 0 640 270" role="img" aria-label="Hydrograph: river flow over 36 hours after the storm"></svg>
+      </div>
+    </div>
+  </div>
+  <p class="small note reveal">Method: SCS curve-number runoff (soil group B: urban 90, farmland 78, or 74 with cover crops, forest and wetland 58) and a triangular unit hydrograph for a 100-square-mile watershed. The dashed line is the same storm on an all-natural landscape. Numbers are illustrative.</p>
+</section>
+
 <!-- PROJECTS -->
 <section id="projects" class="wrap">
   <p class="kicker reveal">Projects &amp; partnerships</p>
