@@ -99,17 +99,28 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     for(let k=oc-1;k>=0;k--){ const c=order[k], r=recv[c]; if(r>=0) acc[r] += acc[c]; }
     const main = new Int32Array(N).fill(-1);
     for(let c=0;c<N;c++){ const r=recv[c]; if(r>=0 && (main[r]<0 || acc[c]>acc[main[r]])) main[r]=c; }
-    const T = Math.max(35, .0022*N), cuts = [T, 3*T, 9*T, 27*T], paths = cuts.map(() => new Path2D());
+    const T = Math.max(35, .0055*N), cuts = [T, 3*T, 9*T, 27*T], paths = cuts.map(() => new Path2D());
+    // trace each river from its source downstream, then smooth the line so it reads as a curve, not grid steps
     const X = c => (c%cols)*cell, Y = c => ((c/cols)|0)*cell;
-    for(let c=0;c<N;c++){
-      const r = recv[c]; if(r<0 || acc[c]<T) continue;
-      let k = 0; while(k<3 && acc[c]>=cuts[k+1]) k++;
-      const p = paths[k], mx = (X(c)+X(r))/2, my = (Y(c)+Y(r))/2, u = main[c];
-      if(u>=0 && acc[u]>=T) p.moveTo((X(u)+X(c))/2, (Y(u)+Y(c))/2); else p.moveTo(X(c), Y(c));
-      p.quadraticCurveTo(X(c), Y(c), mx, my);
-      if(main[r] !== c || recv[r] < 0) p.lineTo(X(r), Y(r));          // tributary joins the river / river reaches the edge
-    }
-    return paths;
+    const hasUp = new Uint8Array(N), done = new Uint8Array(N), sx = new Float32Array(N), sy = new Float32Array(N);
+    for(let c=0;c<N;c++){ if(recv[c]>=0 && acc[c]>=T) hasUp[recv[c]] = 1; }
+    const H = 4;
+    for(let s0=0;s0<N;s0++){
+      if(recv[s0]<0 || acc[s0]<T || hasUp[s0]) continue;
+      const chain = []; let c = s0;
+      while(c>=0 && !done[c]){ chain.push(c); if(recv[c]<0){ c = -1; break; } c = recv[c]; }
+      const n = chain.length, pts = [];
+      for(let i=0;i<n;i++){
+        let ax=0, ay=0, k=0;
+        for(let j=Math.max(0,i-H); j<=Math.min(n-1,i+H); j++){ ax += X(chain[j]); ay += Y(chain[j]); k++; }
+        const q = chain[i]; sx[q]=ax/k; sy[q]=ay/k; done[q]=1; pts.push([sx[q],sy[q]]);
+      }
+      if(c>=0) pts.push([sx[c],sy[c]]);                         // join the river it flows into
+      for(let i=0;i<pts.length-1;i++){
+        const a = acc[chain[Math.min(i,n-1)]]; let k = 0; while(k<3 && a>=cuts[k+1]) k++;
+        paths[k].moveTo(pts[i][0],pts[i][1]); paths[k].lineTo(pts[i+1][0],pts[i+1][1]);
+      }
+    }    return paths;
   }
   let G = null;                       // {g, cols, rows, cell, W, H, dpr}
   const sm = document.createElement("canvas"), smctx = sm.getContext("2d");
@@ -124,7 +135,7 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     G = {g, cols, rows, cell, W, H, dpr}; sm.width = cols; sm.height = rows;
 
     const minor = new Path2D(), major = new Path2D();
-    for(let k=0;k<22;k++){
+    for(let k=0;k<22;k++){ if(k%3) continue;
       const lvl = .16 + k*.027, path = (k%5===0) ? major : minor;
       const pt = (x0,y0,x1,y1,v0,v1) => { const t = (lvl-v0)/(v1-v0); return [x0+(x1-x0)*t, y0+(y1-y0)*t]; };
       for(let j=0;j<rows-1;j++) for(let i=0;i<cols-1;i++){
@@ -147,10 +158,10 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
       }
     }
     ctx.lineWidth = 1; ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgba(143,184,212,.075)"; ctx.stroke(minor);
-    ctx.strokeStyle = "rgba(143,184,212,.17)";  ctx.stroke(major);
+    ctx.strokeStyle = "rgba(143,184,212,.06)"; ctx.stroke(minor);
+    ctx.strokeStyle = "rgba(143,184,212,.10)";  ctx.stroke(major);
     ctx.lineCap = "round";
-    const rw = [.8,1.15,1.6,2.1], ra = [.15,.21,.29,.38];
+    const rw = [.8,1.1,1.5,1.9], ra = [.17,.24,.32,.42];
     (() => { const rc = Math.max(3, Math.ceil(Math.sqrt(W*H/110000))), rcols = Math.ceil(W/rc)+1, rrows = Math.ceil(H/rc)+1, gr = new Float32Array(rcols*rrows);
       for(let j=0;j<rrows;j++) for(let i=0;i<rcols;i++) gr[j*rcols+i] = height(i*rc*sc, j*rc*sc);
       return rivers(gr, rcols, rrows, rc); })().forEach((p,k) => { ctx.lineWidth = rw[k]; ctx.strokeStyle = `rgba(150,196,228,${ra[k]})`; ctx.stroke(p); });
