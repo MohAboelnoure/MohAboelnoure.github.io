@@ -65,11 +65,6 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 .scroll span{position:absolute;left:50%;top:7px;width:3px;height:8px;border-radius:2px;background:var(--a);transform:translateX(-50%);animation:dot 1.8s infinite}
 @keyframes dot{50%{top:19px;opacity:.2}}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-top:0;padding-bottom:40px}
-.stat{padding:26px 22px;border-radius:var(--r);background:linear-gradient(160deg,rgba(16,24,39,.9),rgba(13,20,32,.6));border:1px solid var(--line)}
-.stat b{display:block;font:700 44px 'Space Grotesk';color:var(--head);line-height:1}
-.stat span{display:block;margin-top:10px;font-size:14px;color:var(--mute);line-height:1.4}
 
 /* split */
 .split{display:grid;grid-template-columns:1fr 1.5fr;gap:56px}
@@ -140,8 +135,9 @@ h1 em{font-style:normal;background:linear-gradient(100deg,var(--a),var(--b));-we
 
 @media(max-width:900px){
   .hero-grid,.split{grid-template-columns:1fr}
-  .portrait{order:-1;width:230px;margin:10px 0 24px}  .cards.three,.cards.two{grid-template-columns:1fr}
-  .cards.four,.stats{grid-template-columns:repeat(2,1fr)}
+  .portrait{order:-1;width:230px;margin:10px 0 24px}
+  .cards.three,.cards.two{grid-template-columns:1fr}
+  .cards.four{grid-template-columns:repeat(2,1fr)}
   .burger{display:block}
   nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(7,11,18,.97);padding:10px 24px 20px;display:none;border-bottom:1px solid var(--line)}
   nav.open{display:flex}

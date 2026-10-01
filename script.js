@@ -54,18 +54,10 @@ addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 20),
 document.getElementById("burger").onclick = () => menu.classList.toggle("open");
 menu.addEventListener("click", e => { if(e.target.tagName==="A") menu.classList.remove("open"); });
 
-/* ---- reveal + count-up ---- */
+/* ---- reveal on scroll ---- */
 const io = new IntersectionObserver(es => es.forEach(e => {
   if(!e.isIntersecting) return;
   e.target.classList.add("in");
-  const c = e.target.querySelector("[data-count]");
-  if(c && !c.dataset.done){
-    c.dataset.done = 1;
-    const n = +c.dataset.count, pre = c.dataset.prefix||"", suf = c.dataset.suffix||"";
-    let t0; const step = t => { t0 ??= t; const k = Math.min((t-t0)/1100,1);
-      c.textContent = pre + Math.round(n*(1-Math.pow(1-k,3))) + suf; if(k<1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
-  }
   io.unobserve(e.target);
 }), {threshold:.12});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
