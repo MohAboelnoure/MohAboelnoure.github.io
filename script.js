@@ -1,7 +1,7 @@
 /* ---- Edit these two links ---- */
 const LINKS = {
   scholar: "https://scholar.google.com/",   // replace with your Google Scholar profile URL
-  linkedin: "https://www.linkedin.com/"     // replace with your LinkedIn profile URL
+  linkedin: "https://www.linkedin.com/in/moh-aboelnour-06158b140/"
 };
 
 /* ---- Publications (from CV) ---- */
