@@ -164,6 +164,12 @@ input[type=checkbox]{accent-color:var(--a);width:16px;height:16px}
 .proj:hover{background:rgba(143,184,212,.06);box-shadow:inset 2px 0 0 var(--a)}
 .proj:hover .proj-main h3{color:var(--a)}
 
+/* field photo */
+.field{position:relative;margin-top:44px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.field img{display:block;width:100%;aspect-ratio:21/9;object-fit:cover;object-position:50% 22%}
+.field figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 22px 14px;font:500 15px var(--sans);color:#fff;background:linear-gradient(to top,rgba(12,19,25,.88),rgba(12,19,25,0))}
+@media(max-width:700px){.field img{aspect-ratio:4/3}}
+
 /* pubs */
 .filters{display:flex;gap:10px;margin:26px 0}
 .filters button{background:none;border:1px solid var(--line);color:var(--mute);padding:6px 16px;border-radius:var(--r);cursor:pointer;font:500 15px var(--sans);transition:.2s}
