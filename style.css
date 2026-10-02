@@ -166,12 +166,13 @@ input[type=checkbox]{accent-color:var(--a);width:16px;height:16px}
 
 /* field photo */
 .field-row{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-top:44px}
-.field{position:relative;margin:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card);min-height:380px}
+.field{position:relative;margin:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
 .field img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.field.wide img{object-position:50% 24%}
+.field.wide{aspect-ratio:1500/1123}                 /* matches the photo, so nothing is cropped */
+.field.tall{min-height:380px}
 .field.tall img{object-position:50% 35%}
 .field figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 20px 13px;font:500 15px var(--sans);color:#fff;background:linear-gradient(to top,rgba(12,19,25,.88),rgba(12,19,25,0))}
-@media(max-width:700px){.field-row{grid-template-columns:1fr}.field{min-height:0;aspect-ratio:4/3}.field.tall{aspect-ratio:1/1}}
+@media(max-width:700px){.field-row{grid-template-columns:1fr}.field.tall{min-height:0;aspect-ratio:1/1}}
 
 /* pubs */
 .filters{display:flex;gap:10px;margin:26px 0}
